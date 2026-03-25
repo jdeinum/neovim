@@ -378,7 +378,15 @@ return {
 
 	-- Comment: gc/gcc are built-in since Neovim 0.10+
 
-	{ "echasnovski/mini.pairs", event = "VeryLazy", opts = {} },
+	{
+		"echasnovski/mini.pairs",
+		event = "VeryLazy",
+		opts = {
+			mappings = {
+				["'"] = false,
+			},
+		},
+	},
 
 	-- Highlight and search TODO/FIXME/HACK/NOTE comments
 	{
