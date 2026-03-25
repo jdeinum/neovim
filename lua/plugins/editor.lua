@@ -305,7 +305,7 @@ return {
 			{
 				"<leader>r",
 				function()
-					Snacks.rename()
+					vim.lsp.buf.rename()
 				end,
 				desc = "LSP Rename",
 			},
