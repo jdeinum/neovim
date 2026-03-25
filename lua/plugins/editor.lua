@@ -378,7 +378,7 @@ return {
 
 	-- Comment: gc/gcc are built-in since Neovim 0.10+
 
-	-- Autopairs: handled by blink.cmp auto_brackets
+	{ "echasnovski/mini.pairs", event = "VeryLazy", opts = {} },
 
 	-- Highlight and search TODO/FIXME/HACK/NOTE comments
 	{
