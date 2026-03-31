@@ -373,7 +373,14 @@ return {
 
 		event = "VeryLazy",
 
+		init = function()
+			vim.g.nvim_surround_no_visual_mappings = true
+		end,
 		opts = {},
+		keys = {
+			{ "gz", "<Plug>(nvim-surround-visual)", mode = "x", desc = "Surround visual" },
+			{ "gZ", "<Plug>(nvim-surround-visual-line)", mode = "x", desc = "Surround visual line" },
+		},
 	},
 
 	-- Comment: gc/gcc are built-in since Neovim 0.10+
