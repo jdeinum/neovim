@@ -80,6 +80,7 @@ return {
 			}
 
 			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+				group = vim.api.nvim_create_augroup("custom_lint", { clear = true }),
 				callback = function()
 					require("lint").try_lint()
 				end,
