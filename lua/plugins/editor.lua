@@ -348,6 +348,7 @@ return {
 	-- languages
 	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
 		build = ":TSUpdate",
 		config = treesitter_config.config,
 	},
