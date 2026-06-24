@@ -15,7 +15,7 @@ end
 -- Leader mappings
 map("n", "<leader>w", "<cmd>w<cr>", { desc = "Save file" })
 map("n", "<leader><leader>", "<c-^>", { desc = "Switch to last buffer" })
-map("n", "<leader>uh", ":set invlist<cr>", { desc = "Toggle hidden characters" })
+map("n", "<leader>uh", "<cmd>set invlist<cr>", { desc = "Toggle hidden characters" })
 map("n", "<leader>o", ':e <C-R>=expand("%:p:h") . "/" <cr>', { desc = "Open new file in current directory" })
 
 -- Center search results
@@ -41,8 +41,8 @@ for _, key in ipairs({ "left", "right" }) do
 end
 
 -- Arrow keys for buffer navigation
-map("n", "<left>", ":bp<cr>", { desc = "Previous buffer" })
-map("n", "<right>", ":bn<cr>", { desc = "Next buffer" })
+map("n", "<left>", "<cmd>bp<cr>", { desc = "Previous buffer" })
+map("n", "<right>", "<cmd>bn<cr>", { desc = "Next buffer" })
 
 -- Visual line navigation
 map("n", "j", "gj", { desc = "Move down by visual line" })

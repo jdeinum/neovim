@@ -5,7 +5,7 @@ M.keys = {
 		"<leader>cf",
 		function()
 			require("conform").format({
-				lsp_fallback = true,
+				lsp_format = "fallback",
 				async = false,
 				timeout_ms = 500,
 			})
@@ -36,8 +36,7 @@ M.config = function()
 			hcl = { "hclfmt" },
 		},
 		format_on_save = {
-			lsp_fallback = true,
-			async = false,
+			lsp_format = "fallback",
 			timeout_ms = 500,
 		},
 	})
