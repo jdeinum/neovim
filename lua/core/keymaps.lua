@@ -85,6 +85,25 @@ map("n", "<leader>ui", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
 end, { desc = "Toggle inlay hints" })
 
+-- Scroll documentation popups.
+-- When a noice LSP popup (K hover / signature help) is open these scroll it;
+-- otherwise they fall back to the built-in page scroll:
+--   <C-f> = scroll forward one screen (page down)
+--   <C-b> = scroll backward one screen (page up)
+-- Insert-mode <C-f>/<C-b> are left to blink.cmp (scrolls autocomplete docs).
+local function noice_scroll(delta, fallback)
+	return function()
+		local ok, lsp = pcall(require, "noice.lsp")
+		if ok and lsp.scroll(delta) then
+			return
+		end
+		return fallback
+	end
+end
+
+map({ "n", "s" }, "<C-f>", noice_scroll(4, "<C-f>"), { expr = true, desc = "Scroll docs down (or page forward)" })
+map({ "n", "s" }, "<C-b>", noice_scroll(-4, "<C-b>"), { expr = true, desc = "Scroll docs up (or page backward)" })
+
 -- Paste without losing register in visual mode
 map("x", "p", [["_dP]], { desc = "Paste without yanking replaced text" })
 
