@@ -67,19 +67,8 @@ opt.listchars = "tab:^ ,nbsp:¬,extends:»,precedes:«,trail:•"
 opt.conceallevel = 0
 
 -- Clipboard
-
-vim.g.clipboard = {
-  name = "wl-clipboard",
-  copy = {
-    ["+"] = "wl-copy",
-    ["*"] = "wl-copy",
-  },
-  paste = {
-    ["+"] = "wl-paste",
-    ["*"] = "wl-paste",
-  },
-  cache_enabled = false,
-}
+-- Neovim auto-detects wl-copy/wl-paste on PATH and wires up the correct
+-- flags (incl. --no-newline) for proper characterwise/linewise paste.
 
 opt.clipboard:append({ "unnamed", "unnamedplus" })
 
