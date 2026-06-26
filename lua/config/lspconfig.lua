@@ -55,10 +55,19 @@ M.config = function(_, opts)
 	end
 
 	-- LSP keymaps (gd, gr, gi now handled by Snacks picker)
-	vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Previous Diagnostic" })
-	vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = "Next Diagnostic" })
-	vim.keymap.set("n", "[e", function() vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR }) end, { desc = "Previous Error" })
-	vim.keymap.set("n", "]e", function() vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR }) end, { desc = "Next Error" })
+	-- vim.diagnostic.jump()'s `float` option is deprecated; use the on_jump
+	-- callback to open the diagnostic float after moving (cursor-scoped, unfocused
+	-- to match the old `float = true` behavior).
+	local function diag_jump(opts)
+		opts.on_jump = function(_, bufnr)
+			vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor", focus = false })
+		end
+		return function() vim.diagnostic.jump(opts) end
+	end
+	vim.keymap.set("n", "[d", diag_jump({ count = -1 }), { desc = "Previous Diagnostic" })
+	vim.keymap.set("n", "]d", diag_jump({ count = 1 }), { desc = "Next Diagnostic" })
+	vim.keymap.set("n", "[e", diag_jump({ count = -1, severity = vim.diagnostic.severity.ERROR }), { desc = "Previous Error" })
+	vim.keymap.set("n", "]e", diag_jump({ count = 1, severity = vim.diagnostic.severity.ERROR }), { desc = "Next Error" })
 	vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostic Location List" })
 	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Declaration" })
 	vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Docs" })

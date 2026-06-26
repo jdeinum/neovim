@@ -90,7 +90,10 @@ end, { desc = "Toggle inlay hints" })
 -- otherwise they fall back to the built-in page scroll:
 --   <C-f> = scroll forward one screen (page down)
 --   <C-b> = scroll backward one screen (page up)
--- Insert-mode <C-f>/<C-b> are left to blink.cmp (scrolls autocomplete docs).
+-- Insert-mode <C-f>/<C-b> are left to blink.cmp (scrolls autocomplete docs),
+-- so the in-insert signature-help popup is scrolled with <C-d>/<C-u> instead.
+-- These fall back to a no-op in insert mode (rather than <C-d>'s indent-delete /
+-- <C-u>'s line-clear) when no signature popup is open.
 local function noice_scroll(delta, fallback)
 	return function()
 		local ok, lsp = pcall(require, "noice.lsp")
@@ -103,6 +106,8 @@ end
 
 map({ "n", "s" }, "<C-f>", noice_scroll(4, "<C-f>"), { expr = true, desc = "Scroll docs down (or page forward)" })
 map({ "n", "s" }, "<C-b>", noice_scroll(-4, "<C-b>"), { expr = true, desc = "Scroll docs up (or page backward)" })
+map("i", "<C-d>", noice_scroll(4, ""), { expr = true, desc = "Scroll signature docs down" })
+map("i", "<C-u>", noice_scroll(-4, ""), { expr = true, desc = "Scroll signature docs up" })
 
 -- Paste without losing register in visual mode
 map("x", "p", [["_dP]], { desc = "Paste without yanking replaced text" })
