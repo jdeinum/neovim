@@ -20,6 +20,7 @@ return {
 				{ "<leader>g", group = "git" },
 				{ "<leader>gv", group = "diffview" },
 				{ "<leader>l", group = "tools" },
+				{ "<leader>n", group = "notes" },
 				{ "<leader>s", group = "search/symbols" },
 				{ "<leader>t", group = "test" },
 				{ "<leader>u", group = "toggle" },
