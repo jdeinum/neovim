@@ -59,6 +59,21 @@ local function new_class_note()
 	end)
 end
 
+local function new_thesis_note()
+	local dir = "School/Thesis"
+	vim.fn.mkdir(vim.env.ZK_NOTEBOOK_DIR .. "/" .. dir, "p")
+	require("zk").new({ dir = dir })
+end
+
+local function new_paper_note()
+	vim.ui.input({ prompt = "Paper title: " }, function(title)
+		if title and title ~= "" then
+			vim.fn.mkdir(vim.env.ZK_NOTEBOOK_DIR .. "/School/Papers", "p")
+			require("zk").new({ dir = "School/Papers", title = title })
+		end
+	end)
+end
+
 local function browse_notes()
 	require("zk.api").list(nil, { select = { "title", "path", "absPath" } }, function(err, notes)
 		assert(not err, tostring(err))
@@ -115,6 +130,16 @@ return {
 				"<leader>nc",
 				new_class_note,
 				desc = "New/open class daily note",
+			},
+			{
+				"<leader>nT",
+				new_thesis_note,
+				desc = "New/open thesis daily note",
+			},
+			{
+				"<leader>np",
+				new_paper_note,
+				desc = "New paper note",
 			},
 			{
 				"<leader>nn",
