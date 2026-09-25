@@ -34,6 +34,7 @@ M.config = function()
 			lua = { "stylua" },
 			python = { "isort", "black" },
 			hcl = { "hclfmt" },
+			typst = { "typstyle" },
 		},
 		format_on_save = {
 			lsp_format = "fallback",

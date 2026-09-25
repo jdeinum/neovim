@@ -26,6 +26,7 @@ M.opts = {
 		lua_ls = {},
 		marksman = {},
 		pyright = {},
+		tinymist = {},
 		ansiblels = {
 			filetypes = { "yaml" },
 		},

@@ -2,7 +2,7 @@ local M = {}
 
 M.config = function()
 	require("nvim-treesitter").install({
-		"rust", "lua", "c", "python", "go", "nix", "json", "toml", "yaml",
+		"rust", "lua", "c", "python", "go", "nix", "json", "toml", "yaml", "typst",
 	})
 
 	vim.api.nvim_create_autocmd("FileType", {
