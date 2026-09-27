@@ -26,7 +26,14 @@ M.opts = {
 		lua_ls = {},
 		marksman = {},
 		pyright = {},
-		tinymist = {},
+		tinymist = {
+			-- Keep in sync with typstyle's args in config/conform.lua
+			settings = {
+				formatterMode = "typstyle",
+				formatterPrintWidth = 100,
+				formatterProseWrap = true,
+			},
+		},
 		ansiblels = {
 			filetypes = { "yaml" },
 		},

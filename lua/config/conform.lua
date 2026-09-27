@@ -36,6 +36,12 @@ M.config = function()
 			hcl = { "hclfmt" },
 			typst = { "typstyle" },
 		},
+		formatters = {
+			-- Keep in sync with tinymist's settings in config/lspconfig.lua
+			typstyle = {
+				prepend_args = { "--line-width", "100", "--wrap-text=fill" },
+			},
+		},
 		format_on_save = {
 			lsp_format = "fallback",
 			timeout_ms = 500,
