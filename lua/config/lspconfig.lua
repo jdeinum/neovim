@@ -47,6 +47,7 @@ M.opts = {
 		taplo = {},
 		earthlyls = {},
 		wasm_language_tools = {},
+		harper_ls = {},
 		vale_ls = {
 			-- vale itself is installed via Mason. After adding a package to
 			-- Packages in ~/.config/vale/.vale.ini, run `vale sync` once from
