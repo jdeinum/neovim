@@ -72,6 +72,19 @@ M.config = function(_, opts)
 		vim.lsp.enable(server)
 	end
 
+	-- Nvim sets formatexpr to vim.lsp.formatexpr() for any server with
+	-- textDocument/formatting. For servers without rangeFormatting (e.g.
+	-- rust-analyzer) that makes gq on a selection a silent no-op instead of
+	-- wrapping text/comments. Keep gq as the builtin formatter; whole-file
+	-- formatting goes through conform.
+	vim.api.nvim_create_autocmd("LspAttach", {
+		callback = function(args)
+			if vim.bo[args.buf].formatexpr == "v:lua.vim.lsp.formatexpr()" then
+				vim.bo[args.buf].formatexpr = ""
+			end
+		end,
+	})
+
 	-- LSP keymaps (gd, gr, gi now handled by Snacks picker)
 	-- vim.diagnostic.jump()'s `float` option is deprecated; use the on_jump
 	-- callback to open the diagnostic float after moving (cursor-scoped, unfocused

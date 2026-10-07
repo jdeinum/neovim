@@ -72,6 +72,8 @@ map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
 -- Line navigation
 map("n", "L", "$", { desc = "Go to end of line" })
 map("n", "H", "^", { desc = "Go to start of line" })
+map("n", "gL", "L", { desc = "Go to bottom of screen" })
+map("n", "gH", "H", { desc = "Go to top of screen" })
 
 -- Diagnostic float at cursor
 map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic float" })
