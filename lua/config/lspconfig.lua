@@ -48,15 +48,6 @@ M.opts = {
 		earthlyls = {},
 		wasm_language_tools = {},
 		harper_ls = {},
-		vale_ls = {
-			-- vale itself is installed via Mason. After adding a package to
-			-- Packages in ~/.config/vale/.vale.ini, run `vale sync` once from
-			-- that directory (or :LspRestart with syncOnStartup = true).
-			init_options = {
-				installVale = false,
-				syncOnStartup = false,
-			},
-		},
 	},
 }
 
@@ -93,12 +84,24 @@ M.config = function(_, opts)
 		opts.on_jump = function(_, bufnr)
 			vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor", focus = false })
 		end
-		return function() vim.diagnostic.jump(opts) end
+		return function()
+			vim.diagnostic.jump(opts)
+		end
 	end
 	vim.keymap.set("n", "[d", diag_jump({ count = -1 }), { desc = "Previous Diagnostic" })
 	vim.keymap.set("n", "]d", diag_jump({ count = 1 }), { desc = "Next Diagnostic" })
-	vim.keymap.set("n", "[e", diag_jump({ count = -1, severity = vim.diagnostic.severity.ERROR }), { desc = "Previous Error" })
-	vim.keymap.set("n", "]e", diag_jump({ count = 1, severity = vim.diagnostic.severity.ERROR }), { desc = "Next Error" })
+	vim.keymap.set(
+		"n",
+		"[e",
+		diag_jump({ count = -1, severity = vim.diagnostic.severity.ERROR }),
+		{ desc = "Previous Error" }
+	)
+	vim.keymap.set(
+		"n",
+		"]e",
+		diag_jump({ count = 1, severity = vim.diagnostic.severity.ERROR }),
+		{ desc = "Next Error" }
+	)
 	vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostic Location List" })
 	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Declaration" })
 	-- Wrapped in closures (not passed by reference) so the lookup happens at
@@ -107,8 +110,12 @@ M.config = function(_, opts)
 	-- signature_help to route through its scrollable doc view. A direct
 	-- reference here would capture the pre-patch native functions, silently
 	-- breaking noice's hover/signature scrolling keymaps.
-	vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, { desc = "Hover Docs" })
-	vim.keymap.set("n", "<leader>k", function() vim.lsp.buf.signature_help() end, { desc = "Signature Help" })
+	vim.keymap.set("n", "K", function()
+		vim.lsp.buf.hover()
+	end, { desc = "Hover Docs" })
+	vim.keymap.set("n", "<leader>k", function()
+		vim.lsp.buf.signature_help()
+	end, { desc = "Signature Help" })
 	vim.keymap.set("n", "<leader>lwa", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder" })
 	vim.keymap.set("n", "<leader>lwr", vim.lsp.buf.remove_workspace_folder, { desc = "Remove workspace folder" })
 	vim.keymap.set("n", "<leader>lwl", function()
