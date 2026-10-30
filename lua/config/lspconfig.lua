@@ -30,7 +30,7 @@ M.opts = {
 			-- Keep in sync with typstyle's args in config/conform.lua
 			settings = {
 				formatterMode = "typstyle",
-				formatterPrintWidth = 100,
+				formatterPrintWidth = 80,
 				formatterProseWrap = true,
 			},
 		},
@@ -47,7 +47,9 @@ M.opts = {
 		taplo = {},
 		earthlyls = {},
 		wasm_language_tools = {},
-		harper_ls = {},
+		harper_ls = {
+			settings = { ["harper-ls"] = { linters = { SentenceCapitalization = false } } },
+		},
 	},
 }
 

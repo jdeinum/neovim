@@ -39,7 +39,7 @@ M.config = function()
 		formatters = {
 			-- Keep in sync with tinymist's settings in config/lspconfig.lua
 			typstyle = {
-				prepend_args = { "--line-width", "100", "--wrap-text=fill" },
+				prepend_args = { "--line-width", "80", "--wrap-text=fill" },
 			},
 		},
 		format_on_save = {
